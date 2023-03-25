@@ -11,5 +11,7 @@ outputs:
   output1:
     description: "Description for output1"
 runs:
-  using: "shell"
-  command: "./entrypoint.sh"
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - "arg1"

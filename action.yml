@@ -1,0 +1,15 @@
+name: My Bash Action
+description: "My custom Bash Action"
+inputs:
+  arg1:
+    description: "Description for arg1"
+    required: true
+  arg2:
+    description: "Description for arg2"
+    required: false
+outputs:
+  output1:
+    description: "Description for output1"
+runs:
+  using: "shell"
+  command: "./entrypoint.sh"

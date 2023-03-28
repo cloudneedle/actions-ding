@@ -11,7 +11,5 @@ outputs:
   output1:
     description: "Description for output1"
 runs:
-  using: "docker"
-  image: "Dockerfile"
-  args:
-    - "arg1"
+  using: "node16"
+  main: "dist/index.js"

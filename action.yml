@@ -1,15 +1,45 @@
 name: My Bash Action
 description: "My custom Bash Action"
 inputs:
-  arg1:
-    description: "Description for arg1"
+  repo:
+    description: "Repository"
     required: true
-  arg2:
-    description: "Description for arg2"
+    default: ${{ github.repository }}
+  dingToken:
+    description: "DingTalk robot token"
+    required: true
+    default: ${{ secrets.DING_TOKEN }}
+  runId:
+    description: "Run ID"
+    required: true
+    default: ${{ github.run_id }}
+  ref:
+    description: "Git ref"
+    required: true
+    default: ${{ github.ref }}
+  job:
+    description: "Job name"
+    required: true
+    default: ${{ github.job }}
+  commitMsg:
+    description: "Commit message"
+    required: true
+    default: ${{ github.event.head_commit.message }}
+  commitAuthor:
+    description: "Commit author"
+    required: true
+    default: ${{ github.event.head_commit.author.name }}
+  isStart:
+    description: "Is start"
+    required: true
+    default: "true"
+  startTime:
+    description: "Start time"
     required: false
-outputs:
-  output1:
-    description: "Description for output1"
+  serverUrl:
+    description: "Server URL"
+    required: false
+
 runs:
   using: "node16"
   main: "dist/index.js"

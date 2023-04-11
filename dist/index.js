@@ -9683,7 +9683,7 @@ function getActionCard(opt) {
 提交分支：**${branch}**<br/>
 提交人：**${opt.commitAuthor}**<br/>
     `;
-    const startText = `**CI任务<font color=#33CC00>启动</font>通知**<br/>`;
+    const startText = `**CI任务<font color=#FF9900>启动</font>通知**<br/>`;
     const resultText = opt.result === 'success' ?
         `**CI任务<font color=#33CC00>执行成功</font>通知**<br/>` :
         `**CI任务<font color=#FF3333>执行失败</font>通知**<br/>`;

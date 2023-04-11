@@ -9,11 +9,11 @@ function run() {
     const job = core.getInput('job', {required: true})
     const commitMsg = core.getInput('commitMsg', {required: true})
     const commitAuthor = core.getInput('commitAuthor', {required: true})
-    const serverUrl = core.getInput('serverUrl', {required: true})
-    const repository = core.getInput('repo', {required: true})
-    const result = core.getInput('result', {required: true})
-    const isStart = core.getInput('isStart', {required: true})
-    const startAt = core.getInput('startAt', {required: true})
+    const serverUrl = core.getInput('serverUrl')
+    const repository = core.getInput('repo')
+    const result = core.getInput('result')
+    const isStart = core.getInput('isStart')
+    const startAt = core.getInput('startAt')
 
     const msg = new Robot(dingToken, getActionCard({
         runId: runId,

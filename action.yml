@@ -21,6 +21,10 @@ inputs:
     description: "Job name"
     required: true
     default: ${{ github.job }}
+  jobStatus:
+    description: "Job status"
+    required: true
+    default: ${{ job.status }}
   commitMsg:
     description: "Commit message"
     required: true

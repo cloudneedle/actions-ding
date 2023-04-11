@@ -9684,7 +9684,7 @@ function getActionCard(opt) {
 提交人：**${opt.commitAuthor}**<br/>
     `;
     const startText = `**CI任务<font color=#FF9900>启动</font>通知**<br/>`;
-    const resultText = opt.result === 'success' ?
+    const resultText = opt.jobStatus === 'success' ?
         `**CI任务<font color=#33CC00>执行成功</font>通知**<br/>` :
         `**CI任务<font color=#FF3333>执行失败</font>通知**<br/>`;
     let title = '';
@@ -9693,7 +9693,7 @@ function getActionCard(opt) {
         commonText = startText + commonText;
     }
     else {
-        title = opt.result === 'success' ? 'CI任务执行成功通知' : 'CI任务执行失败通知';
+        title = opt.jobStatus === 'success' ? 'CI任务执行成功通知' : 'CI任务执行失败通知';
         commonText = resultText + commonText;
         // 计算耗时：00分00秒
         const startAt = parseInt(opt.startAt);
@@ -9725,11 +9725,11 @@ function run() {
     const runId = core.getInput('runId', { required: true });
     const ref = core.getInput('ref', { required: true });
     const job = core.getInput('job', { required: true });
+    const jobStatus = core.getInput('jobStatus', { required: true });
     const commitMsg = core.getInput('commitMsg', { required: true });
     const commitAuthor = core.getInput('commitAuthor', { required: true });
     const serverUrl = core.getInput('serverUrl');
     const repository = core.getInput('repo');
-    const result = core.getInput('result');
     const isStart = core.getInput('isStart');
     const startAt = core.getInput('startAt');
     const msg = new Robot(dingToken, getActionCard({
@@ -9741,7 +9741,7 @@ function run() {
         btnOrientation: "1",
         serverUrl: serverUrl,
         repository: repository,
-        result: result,
+        jobStatus: jobStatus,
         isStart: isStart,
         startAt: startAt,
     }));

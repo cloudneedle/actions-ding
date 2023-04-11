@@ -7,11 +7,11 @@ function run() {
     const runId = core.getInput('runId', {required: true})
     const ref = core.getInput('ref', {required: true})
     const job = core.getInput('job', {required: true})
+    const jobStatus = core.getInput('jobStatus',{required: true})
     const commitMsg = core.getInput('commitMsg', {required: true})
     const commitAuthor = core.getInput('commitAuthor', {required: true})
     const serverUrl = core.getInput('serverUrl')
     const repository = core.getInput('repo')
-    const result = core.getInput('result')
     const isStart = core.getInput('isStart')
     const startAt = core.getInput('startAt')
 
@@ -24,7 +24,7 @@ function run() {
         btnOrientation: "1",
         serverUrl: serverUrl,
         repository: repository,
-        result: result,
+        jobStatus: jobStatus,
         isStart: isStart,
         startAt: startAt,
     }))

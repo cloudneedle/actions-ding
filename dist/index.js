@@ -9688,7 +9688,7 @@ function getActionCard(opt) {
         `**CI任务<font color=#33CC00>执行成功</font>通知**<br/>` :
         `**CI任务<font color=#FF3333>执行失败</font>通知**<br/>`;
     let title = '';
-    if (opt.isStart === "true") {
+    if (!opt.startAt) {
         title = 'CI任务启动通知';
         commonText = startText + commonText;
     }
@@ -9730,7 +9730,6 @@ function run() {
     const commitAuthor = core.getInput('commitAuthor', { required: true });
     const serverUrl = core.getInput('serverUrl');
     const repository = core.getInput('repo');
-    const isStart = core.getInput('isStart');
     const startAt = core.getInput('startAt');
     const msg = new Robot(dingToken, getActionCard({
         runId: runId,
@@ -9742,7 +9741,6 @@ function run() {
         serverUrl: serverUrl,
         repository: repository,
         jobStatus: jobStatus,
-        isStart: isStart,
         startAt: startAt,
     }));
     msg.send();

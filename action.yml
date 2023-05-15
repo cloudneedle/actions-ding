@@ -1,5 +1,5 @@
-name: My Bash Action
-description: "My custom Bash Action"
+name: Ding Talk notification
+description: "Ding Talk notification"
 inputs:
   repo:
     description: "Repository"
@@ -33,14 +33,9 @@ inputs:
     description: "Commit author"
     required: true
     default: ${{ github.event.head_commit.author.name }}
-  isStart:
-    description: "Is start"
-    required: true
-    default: "true"
   startTime:
     description: "Start time"
     required: false
-    default: $(date +%s)
   serverUrl:
     description: "Server URL"
     required: false

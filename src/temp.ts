@@ -10,7 +10,6 @@ export function getActionCard(opt: {
     serverUrl: string, // 服务器地址
     repository: string, // 仓库名称
     jobStatus: string, // 执行结果: success, failure
-    isStart: string, // 是否是开始
     startAt: string, // 开始时间, 时间戳(秒)
 }): ActionCard {
     const repoUrl = `${opt.serverUrl}/${opt.repository}`;
@@ -41,7 +40,7 @@ export function getActionCard(opt: {
         `**CI任务<font color=#33CC00>执行成功</font>通知**<br/>` :
         `**CI任务<font color=#FF3333>执行失败</font>通知**<br/>`
     let title = ''
-    if (opt.isStart === "true") {
+    if (!opt.startAt) {
         title = 'CI任务启动通知'
         commonText = startText + commonText
     } else {

@@ -40,6 +40,7 @@ inputs:
   startTime:
     description: "Start time"
     required: false
+    default: $(date +%s)
   serverUrl:
     description: "Server URL"
     required: false

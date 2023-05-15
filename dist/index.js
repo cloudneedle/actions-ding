@@ -9660,7 +9660,10 @@ class Robot {
     }
 }
 
+// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
+var core = __nccwpck_require__(2186);
 ;// CONCATENATED MODULE: ./src/temp.ts
+
 function getActionCard(opt) {
     const repoUrl = `${opt.serverUrl}/${opt.repository}`;
     const jobUrl = `${repoUrl}/actions/runs/${opt.runId}`;
@@ -9688,20 +9691,23 @@ function getActionCard(opt) {
         `**CI任务<font color=#33CC00>执行成功</font>通知**<br/>` :
         `**CI任务<font color=#FF3333>执行失败</font>通知**<br/>`;
     let title = '';
-    if (!opt.startAt) {
+    if (opt.event === "start") {
         title = 'CI任务启动通知';
         commonText = startText + commonText;
+        core.setOutput('startAt', Math.floor(Date.now() / 1000).toString());
     }
     else {
         title = opt.jobStatus === 'success' ? 'CI任务执行成功通知' : 'CI任务执行失败通知';
         commonText = resultText + commonText;
         // 计算耗时：00分00秒
-        const startAt = parseInt(opt.startAt);
-        const endAt = Math.floor(Date.now() / 1000);
-        const diff = endAt - startAt;
-        const min = Math.floor(diff / 60);
-        const sec = diff % 60;
-        commonText += `耗时：**${min}分${sec}秒**<br/>`;
+        if (opt.startAt) {
+            const startAt = parseInt(opt.startAt);
+            const endAt = Math.floor(Date.now() / 1000);
+            const diff = endAt - startAt;
+            const min = Math.floor(diff / 60);
+            const sec = diff % 60;
+            commonText += `耗时：**${min}分${sec}秒**<br/>`;
+        }
     }
     return {
         msgtype: "actionCard",
@@ -9714,8 +9720,6 @@ function getActionCard(opt) {
     };
 }
 
-// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
-var core = __nccwpck_require__(2186);
 ;// CONCATENATED MODULE: ./src/index.ts
 
 
@@ -9730,6 +9734,7 @@ function run() {
     const commitAuthor = core.getInput('commitAuthor', { required: true });
     const serverUrl = core.getInput('serverUrl');
     const repository = core.getInput('repo');
+    const event = core.getInput('event');
     const startAt = core.getInput('startAt');
     const msg = new Robot(dingToken, getActionCard({
         runId: runId,
@@ -9741,6 +9746,7 @@ function run() {
         serverUrl: serverUrl,
         repository: repository,
         jobStatus: jobStatus,
+        event: event,
         startAt: startAt,
     }));
     msg.send();

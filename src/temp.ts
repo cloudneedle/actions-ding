@@ -1,4 +1,5 @@
 import {ActionCard} from "./message";
+import * as core from '@actions/core'
 
 export function getActionCard(opt: {
     runId: string, // 运行ID
@@ -10,6 +11,7 @@ export function getActionCard(opt: {
     serverUrl: string, // 服务器地址
     repository: string, // 仓库名称
     jobStatus: string, // 执行结果: success, failure
+    event: string, // 事件: start, end
     startAt: string, // 开始时间, 时间戳(秒)
 }): ActionCard {
     const repoUrl = `${opt.serverUrl}/${opt.repository}`;
@@ -40,19 +42,22 @@ export function getActionCard(opt: {
         `**CI任务<font color=#33CC00>执行成功</font>通知**<br/>` :
         `**CI任务<font color=#FF3333>执行失败</font>通知**<br/>`
     let title = ''
-    if (!opt.startAt) {
+    if (opt.event === "start") {
         title = 'CI任务启动通知'
         commonText = startText + commonText
+        core.setOutput('startAt', Math.floor(Date.now() / 1000).toString())
     } else {
         title = opt.jobStatus === 'success' ? 'CI任务执行成功通知' : 'CI任务执行失败通知'
         commonText = resultText + commonText
         // 计算耗时：00分00秒
-        const startAt = parseInt(opt.startAt);
-        const endAt = Math.floor(Date.now() / 1000);
-        const diff = endAt - startAt;
-        const min = Math.floor(diff / 60);
-        const sec = diff % 60;
-        commonText += `耗时：**${min}分${sec}秒**<br/>`
+        if (opt.startAt) {
+            const startAt = parseInt(opt.startAt);
+            const endAt = Math.floor(Date.now() / 1000);
+            const diff = endAt - startAt;
+            const min = Math.floor(diff / 60);
+            const sec = diff % 60;
+            commonText += `耗时：**${min}分${sec}秒**<br/>`
+        }
     }
 
     return {

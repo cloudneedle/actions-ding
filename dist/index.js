@@ -9665,8 +9665,10 @@ var core = __nccwpck_require__(2186);
 ;// CONCATENATED MODULE: ./src/temp.ts
 
 function getActionCard(opt) {
-    const repoUrl = `${opt.serverUrl}/${opt.repository}`;
-    const jobUrl = `${repoUrl}/actions/runs/${opt.runId}`;
+    const baseUrl = `${opt.serverUrl}/${opt.repository}`;
+    const repoUrl = `dingtalk://dingtalkclient/page/link?url=${encodeURI(baseUrl)}&pc_slide=false`;
+    const jobBaseUrl = `${repoUrl}/actions/runs/${opt.runId}`;
+    const jobUrl = `dingtalk://dingtalkclient/page/link?url=${encodeURI(jobBaseUrl)}&pc_slide=false`;
     const btns = [
         {
             title: "查看项目",
@@ -9679,17 +9681,17 @@ function getActionCard(opt) {
     ];
     const branch = opt.ref.replace('refs/heads/', '');
     let commonText = `
-任务ID：**${opt.runId}**<br/>
-任务名：**${opt.jobName}**<br/>
-仓库名：**${opt.repository}**<br/>
-提交信息：**${opt.commitMsg}**<br/>
-提交分支：**${branch}**<br/>
-提交人：**${opt.commitAuthor}**<br/>
+任务ID：**${opt.runId}**\n\n
+任务名：**${opt.jobName}**\n\n
+仓库名：**${opt.repository}**\n\n
+提交信息：**${opt.commitMsg}**\n\n
+提交分支：**${branch}**\n\n
+提交人：**${opt.commitAuthor}**\n\n
     `;
-    const startText = `**CI任务<font color=#FF9900>启动</font>通知**<br/>`;
+    const startText = `**CI任务<font color=#FF9900>启动</font>通知**\n\n`;
     const resultText = opt.jobStatus === 'success' ?
-        `**CI任务<font color=#33CC00>执行成功</font>通知**<br/>` :
-        `**CI任务<font color=#FF3333>执行失败</font>通知**<br/>`;
+        `**CI任务<font color=#33CC00>执行成功</font>通知**\n\n` :
+        `**CI任务<font color=#FF3333>执行失败</font>通知**\n\n`;
     let title = '';
     if (opt.event === "start") {
         title = 'CI任务启动通知';
@@ -9706,7 +9708,7 @@ function getActionCard(opt) {
             const diff = endAt - startAt;
             const min = Math.floor(diff / 60);
             const sec = diff % 60;
-            commonText += `耗时：**${min}分${sec}秒**<br/>`;
+            commonText += `耗时：**${min}分${sec}秒**\n\n`;
         }
     }
     return {

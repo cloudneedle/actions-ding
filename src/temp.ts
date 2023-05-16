@@ -16,7 +16,7 @@ export function getActionCard(opt: {
 }): ActionCard {
     const baseUrl = `${opt.serverUrl}/${opt.repository}`;
     const repoUrl = `dingtalk://dingtalkclient/page/link?url=${encodeURI(baseUrl)}&pc_slide=false`;
-    const jobBaseUrl = `${repoUrl}/actions/runs/${opt.runId}`;
+    const jobBaseUrl = `${baseUrl}/actions/runs/${opt.runId}`;
     const jobUrl = `dingtalk://dingtalkclient/page/link?url=${encodeURI(jobBaseUrl)}&pc_slide=false`;
     const btns = [
         {
@@ -58,7 +58,7 @@ export function getActionCard(opt: {
             const diff = endAt - startAt;
             const min = Math.floor(diff / 60);
             const sec = diff % 60;
-            commonText += `耗时：**${min}分${sec}秒**\n\n`
+            commonText += `耗时：**${min}分${sec}秒**`
         }
     }
 

@@ -9687,7 +9687,7 @@ function getActionCard(opt) {
 提交信息：**${opt.commitMsg}**\n  
 提交分支：**${branch}**\n  
 提交人：**${opt.commitAuthor}**\n  
-    `;
+`;
     const startText = `**CI任务<font color=#FF9900>启动</font>通知**\n  `;
     const resultText = opt.jobStatus === 'success' ?
         `**CI任务<font color=#33CC00>执行成功</font>通知**\n  ` :
@@ -9734,7 +9734,7 @@ function run() {
     const jobStatus = core.getInput('jobStatus', { required: true });
     const commitMsg = core.getInput('commitMsg', { required: true });
     const commitAuthor = core.getInput('commitAuthor', { required: true });
-    const serverUrl = core.getInput('serverUrl');
+    const serverUrl = process.env.GITHUB_SERVER_URL;
     const repository = core.getInput('repo');
     const event = core.getInput('event');
     const startTime = core.getInput('startTime');
@@ -9751,8 +9751,6 @@ function run() {
         event: event,
         startTime: startTime,
     }));
-    // 读取环境变量
-    console.log("测试URL:" + process.env.GITHUB_SERVER_URL);
     msg.send();
 }
 run();

@@ -10,7 +10,7 @@ function run() {
     const jobStatus = core.getInput('jobStatus',{required: true})
     const commitMsg = core.getInput('commitMsg', {required: true})
     const commitAuthor = core.getInput('commitAuthor', {required: true})
-    const serverUrl = core.getInput('serverUrl')
+    const serverUrl = process.env.GITHUB_SERVER_URL
     const repository = core.getInput('repo')
     const event = core.getInput('event')
     const startTime = core.getInput('startTime')
@@ -28,9 +28,6 @@ function run() {
         event: event,
         startTime: startTime,
     }))
-    // 读取环境变量
-    console.log("测试URL:"+process.env.GITHUB_SERVER_URL);
-    
     msg.send()
 }
 

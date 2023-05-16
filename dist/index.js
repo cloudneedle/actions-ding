@@ -9682,6 +9682,9 @@ function getActionCard(opt) {
 提交信息：**${opt.commitMsg}**<br/>
 提交分支：**${branch}**<br/>
 提交人：**${opt.commitAuthor}**<br/>
+job.status: **${opt.jobStatus}**<br/>
+event: **${opt.event}**<br/>
+startTime: **${opt.startTime}**<br/>
     `;
     const startText = `**CI任务<font color=#FF9900>启动</font>通知**<br/>`;
     const resultText = opt.jobStatus === 'success' ?
@@ -9734,11 +9737,6 @@ function run() {
     const repository = core.getInput('repo');
     const evt = core.getInput('evt');
     const startTime = core.getInput('startTime');
-    // 秒时间戳
-    const startAt = Math.floor(Date.now() / 1000);
-    core.setOutput('startAt', startAt.toString());
-    console.log(`startTime: ${startAt}`);
-    console.log(`evt: ${evt}`);
     const msg = new Robot(dingToken, getActionCard({
         runId: runId,
         ref: ref,

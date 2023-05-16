@@ -13,7 +13,7 @@ function run() {
     const serverUrl = core.getInput('serverUrl')
     const repository = core.getInput('repo')
     const evt = core.getInput('evt')
-    const startAt = core.getInput('startTime')
+    const startTime = core.getInput('startTime')
 
     const msg = new Robot(dingToken, getActionCard({
         runId: runId,
@@ -26,7 +26,7 @@ function run() {
         repository: repository,
         jobStatus: jobStatus,
         event: evt,
-        startAt: startAt,
+        startTime: startTime,
     }))
     msg.send()
 }

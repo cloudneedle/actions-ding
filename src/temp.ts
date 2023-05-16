@@ -11,7 +11,7 @@ export function getActionCard(opt: {
     repository: string, // 仓库名称
     jobStatus: string, // 执行结果: success, failure
     event: string, // 事件: start, end
-    startAt: string, // 开始时间, 时间戳(秒)
+    startTime: string, // 开始时间, 时间戳(秒)
 }): ActionCard {
     const repoUrl = `${opt.serverUrl}/${opt.repository}`;
     const jobUrl = `${repoUrl}/actions/runs/${opt.runId}`;
@@ -48,8 +48,8 @@ export function getActionCard(opt: {
         title = opt.jobStatus === 'success' ? 'CI任务执行成功通知' : 'CI任务执行失败通知'
         commonText = resultText + commonText
         // 计算耗时：00分00秒
-        if (opt.startAt) {
-            const startAt = parseInt(opt.startAt);
+        if (opt.startTime) {
+            const startAt = parseInt(opt.startTime);
             const endAt = Math.floor(Date.now() / 1000);
             const diff = endAt - startAt;
             const min = Math.floor(diff / 60);

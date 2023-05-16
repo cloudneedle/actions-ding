@@ -9696,8 +9696,8 @@ function getActionCard(opt) {
         title = opt.jobStatus === 'success' ? 'CI任务执行成功通知' : 'CI任务执行失败通知';
         commonText = resultText + commonText;
         // 计算耗时：00分00秒
-        if (opt.startAt) {
-            const startAt = parseInt(opt.startAt);
+        if (opt.startTime) {
+            const startAt = parseInt(opt.startTime);
             const endAt = Math.floor(Date.now() / 1000);
             const diff = endAt - startAt;
             const min = Math.floor(diff / 60);
@@ -9733,7 +9733,7 @@ function run() {
     const serverUrl = core.getInput('serverUrl');
     const repository = core.getInput('repo');
     const evt = core.getInput('evt');
-    const startAt = core.getInput('startTime');
+    const startTime = core.getInput('startTime');
     const msg = new Robot(dingToken, getActionCard({
         runId: runId,
         ref: ref,
@@ -9745,7 +9745,7 @@ function run() {
         repository: repository,
         jobStatus: jobStatus,
         event: evt,
-        startAt: startAt,
+        startTime: startTime,
     }));
     msg.send();
 }

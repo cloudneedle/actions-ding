@@ -9644,7 +9644,10 @@ axios.default = axios;
 // this module should only have a default export
 /* harmony default export */ const lib_axios = (axios);
 
+// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
+var core = __nccwpck_require__(2186);
 ;// CONCATENATED MODULE: ./src/robot.ts
+
 
 class Robot {
     constructor(token, body) {
@@ -9654,6 +9657,13 @@ class Robot {
     send() {
         lib_axios.post(`https://oapi.dingtalk.com/robot/send?access_token=${this.token}`, this.body).then(e => {
             console.log("钉钉消息推送成功");
+            const serverUrl = core.getInput('serverUrl');
+            const evt = core.getInput('evt');
+            console.log("serverUrl:", serverUrl);
+            console.log("evt:", evt);
+            if (evt === "start") {
+                core.setOutput('startAt', Math.floor(Date.now() / 1000).toString());
+            }
         }).catch(e => {
             console.log("钉钉消息推送失败:", e);
         });
@@ -9716,8 +9726,6 @@ function getActionCard(opt) {
     };
 }
 
-// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
-var core = __nccwpck_require__(2186);
 ;// CONCATENATED MODULE: ./src/index.ts
 
 
@@ -9734,17 +9742,6 @@ function run() {
     const repository = core.getInput('repo');
     const evt = core.getInput('evt');
     const startAt = core.getInput('startTime');
-    console.log("dingToken:", dingToken);
-    console.log("runId:", runId);
-    console.log("ref:", ref);
-    console.log("job:", job);
-    console.log("jobStatus:", jobStatus);
-    console.log("commitMsg:", commitMsg);
-    console.log("commitAuthor:", commitAuthor);
-    console.log("serverUrl:", serverUrl);
-    console.log("repository:", repository);
-    console.log("evt:", evt);
-    console.log("startAt:", startAt);
     const msg = new Robot(dingToken, getActionCard({
         runId: runId,
         ref: ref,

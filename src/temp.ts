@@ -1,5 +1,4 @@
 import {ActionCard} from "./message";
-import * as core from '@actions/core'
 
 export function getActionCard(opt: {
     runId: string, // 运行ID

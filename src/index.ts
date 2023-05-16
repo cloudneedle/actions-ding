@@ -28,11 +28,6 @@ function run() {
         event: evt,
         startAt: startAt,
     }))
-
-    if (evt === "start") {
-        core.setOutput('startAt', Math.floor(Date.now() / 1000).toString())
-    }
-
     msg.send()
 }
 

@@ -28,6 +28,9 @@ function run() {
         event: event,
         startTime: startTime,
     }))
+    // 读取环境变量
+    console.log("测试URL:"+process.env.GITHUB_SERVER_URL);
+    
     msg.send()
 }
 

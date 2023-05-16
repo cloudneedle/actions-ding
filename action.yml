@@ -35,7 +35,7 @@ inputs:
     default: ${{ github.event.head_commit.author.name }}
   evt:
     description: "通知事件：start-开始事件，end-结束事件"
-    required: true
+    required: false
     default: "start"
   startTime:
     description: "Start time"
@@ -46,6 +46,7 @@ inputs:
 outputs:
   startAt:
     description: "开始时间"
+    
 runs:
   using: "node16"
   main: "dist/index.js"

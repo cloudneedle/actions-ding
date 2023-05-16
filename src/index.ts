@@ -15,13 +15,11 @@ function run() {
     const evt = core.getInput('evt')
     const startTime = core.getInput('startTime')
 
-    core.debug("evt:"+evt);
-    core.debug("startTime:"+startTime);
-
     // 秒时间戳
     const startAt = Math.floor(Date.now() / 1000);
     core.setOutput('startAt',startAt.toString())
-
+    console.log(`startTime: ${startAt}`)
+    console.log(`evt: ${evt}`)
     const msg = new Robot(dingToken, getActionCard({
         runId: runId,
         ref: ref,

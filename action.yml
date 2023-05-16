@@ -33,11 +33,11 @@ inputs:
     description: "Commit author"
     required: true
     default: ${{ github.event.head_commit.author.name }}
-  event:
+  evt:
     description: "通知事件：start-开始事件，end-结束事件"
     required: true
     default: "start"
-  startAt:
+  startTime:
     description: "Start time"
     required: false
   serverUrl:

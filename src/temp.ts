@@ -37,6 +37,7 @@ export function getActionCard(opt: {
 提交信息：**${opt.commitMsg}**\n
 提交分支：**${branch}**\n
 提交人：**${opt.commitAuthor}**\n
+
     `
 
     const startText = `**CI任务<font color=#FF9900>启动</font>通知**\n`

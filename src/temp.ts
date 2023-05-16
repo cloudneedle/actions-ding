@@ -31,19 +31,18 @@ export function getActionCard(opt: {
 
     const branch = opt.ref.replace('refs/heads/', '');
     let commonText = `
-任务ID：**${opt.runId}**\n
-任务名：**${opt.jobName}**\n
-仓库名：**${opt.repository}**\n
-提交信息：**${opt.commitMsg}**\n
-提交分支：**${branch}**\n
-提交人：**${opt.commitAuthor}**\n
-
+任务ID：**${opt.runId}**\n  
+任务名：**${opt.jobName}**\n  
+仓库名：**${opt.repository}**\n  
+提交信息：**${opt.commitMsg}**\n  
+提交分支：**${branch}**\n  
+提交人：**${opt.commitAuthor}**\n  
     `
 
-    const startText = `**CI任务<font color=#FF9900>启动</font>通知**\n`
+    const startText = `**CI任务<font color=#FF9900>启动</font>通知**\n  `
     const resultText = opt.jobStatus === 'success' ?
-        `**CI任务<font color=#33CC00>执行成功</font>通知**\n` :
-        `**CI任务<font color=#FF3333>执行失败</font>通知**\n`
+        `**CI任务<font color=#33CC00>执行成功</font>通知**\n  ` :
+        `**CI任务<font color=#FF3333>执行失败</font>通知**\n  `
     let title = ''
     if (opt.event === "start") {
         title = 'CI任务启动通知'

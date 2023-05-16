@@ -15,6 +15,20 @@ function run() {
     const evt = core.getInput('evt')
     const startAt = core.getInput('startTime')
 
+    console.log("dingToken:",dingToken);
+    console.log("runId:",runId);
+    console.log("ref:",ref);
+    console.log("job:",job);
+    console.log("jobStatus:",jobStatus);
+    console.log("commitMsg:",commitMsg);
+    console.log("commitAuthor:",commitAuthor);
+    console.log("serverUrl:",serverUrl);
+    console.log("repository:",repository);
+    console.log("evt:",evt);
+    console.log("startAt:",startAt);
+
+    
+
     const msg = new Robot(dingToken, getActionCard({
         runId: runId,
         ref: ref,
@@ -28,6 +42,10 @@ function run() {
         event: evt,
         startAt: startAt,
     }))
+
+    if (evt === "start") {
+        core.setOutput('startAt', Math.floor(Date.now() / 1000).toString())
+    }
 
     msg.send()
 }

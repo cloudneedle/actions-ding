@@ -45,7 +45,6 @@ export function getActionCard(opt: {
     if (opt.event === "start") {
         title = 'CI任务启动通知'
         commonText = startText + commonText
-        core.setOutput('startAt', Math.floor(Date.now() / 1000).toString())
     } else {
         title = opt.jobStatus === 'success' ? 'CI任务执行成功通知' : 'CI任务执行失败通知'
         commonText = resultText + commonText

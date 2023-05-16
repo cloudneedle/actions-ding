@@ -9660,7 +9660,10 @@ class Robot {
     }
 }
 
+// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
+var core = __nccwpck_require__(2186);
 ;// CONCATENATED MODULE: ./src/temp.ts
+
 function getActionCard(opt) {
     const repoUrl = `${opt.serverUrl}/${opt.repository}`;
     const jobUrl = `${repoUrl}/actions/runs/${opt.runId}`;
@@ -9682,9 +9685,6 @@ function getActionCard(opt) {
 提交信息：**${opt.commitMsg}**<br/>
 提交分支：**${branch}**<br/>
 提交人：**${opt.commitAuthor}**<br/>
-job.status: **${opt.jobStatus}**<br/>
-event: **${opt.event}**<br/>
-startTime: **${opt.startTime}**<br/>
     `;
     const startText = `**CI任务<font color=#FF9900>启动</font>通知**<br/>`;
     const resultText = opt.jobStatus === 'success' ?
@@ -9694,6 +9694,7 @@ startTime: **${opt.startTime}**<br/>
     if (opt.event === "start") {
         title = 'CI任务启动通知';
         commonText = startText + commonText;
+        core.setOutput('startAt', Math.floor(Date.now() / 1000).toString());
     }
     else {
         title = opt.jobStatus === 'success' ? 'CI任务执行成功通知' : 'CI任务执行失败通知';
@@ -9719,8 +9720,6 @@ startTime: **${opt.startTime}**<br/>
     };
 }
 
-// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
-var core = __nccwpck_require__(2186);
 ;// CONCATENATED MODULE: ./src/index.ts
 
 
@@ -9735,7 +9734,7 @@ function run() {
     const commitAuthor = core.getInput('commitAuthor', { required: true });
     const serverUrl = core.getInput('serverUrl');
     const repository = core.getInput('repo');
-    const evt = core.getInput('evt');
+    const event = core.getInput('event');
     const startTime = core.getInput('startTime');
     const msg = new Robot(dingToken, getActionCard({
         runId: runId,
@@ -9747,7 +9746,7 @@ function run() {
         serverUrl: serverUrl,
         repository: repository,
         jobStatus: jobStatus,
-        event: evt,
+        event: event,
         startTime: startTime,
     }));
     msg.send();

@@ -12,7 +12,7 @@ function run() {
     const commitAuthor = core.getInput('commitAuthor', {required: true})
     const serverUrl = core.getInput('serverUrl')
     const repository = core.getInput('repo')
-    const evt = core.getInput('evt')
+    const event = core.getInput('event')
     const startTime = core.getInput('startTime')
 
     const msg = new Robot(dingToken, getActionCard({
@@ -25,7 +25,7 @@ function run() {
         serverUrl: serverUrl,
         repository: repository,
         jobStatus: jobStatus,
-        event: evt,
+        event: event,
         startTime: startTime,
     }))
     msg.send()

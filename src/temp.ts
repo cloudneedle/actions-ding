@@ -1,4 +1,5 @@
 import {ActionCard} from "./message";
+import * as core from "@actions/core";
 
 export function getActionCard(opt: {
     runId: string, // 运行ID
@@ -34,9 +35,6 @@ export function getActionCard(opt: {
 提交信息：**${opt.commitMsg}**<br/>
 提交分支：**${branch}**<br/>
 提交人：**${opt.commitAuthor}**<br/>
-job.status: **${opt.jobStatus}**<br/>
-event: **${opt.event}**<br/>
-startTime: **${opt.startTime}**<br/>
     `
 
     const startText = `**CI任务<font color=#FF9900>启动</font>通知**<br/>`
@@ -47,6 +45,7 @@ startTime: **${opt.startTime}**<br/>
     if (opt.event === "start") {
         title = 'CI任务启动通知'
         commonText = startText + commonText
+        core.setOutput('startAt', Math.floor(Date.now() / 1000).toString())
     } else {
         title = opt.jobStatus === 'success' ? 'CI任务执行成功通知' : 'CI任务执行失败通知'
         commonText = resultText + commonText

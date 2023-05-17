@@ -4,7 +4,7 @@ import * as core from '@actions/core'
 
 function run() {
     const dingToken = core.getInput('dingToken', {required: true})
-    const runId = core.getInput('runId', {required: true})
+    const runId = process.env.GITHUB_RUN_NUMBER
     const ref = core.getInput('ref', {required: true})
     const job = core.getInput('job', {required: true})
     const jobStatus = core.getInput('jobStatus',{required: true})
